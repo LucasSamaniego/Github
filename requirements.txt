@@ -1,2 +1,4 @@
-pandas
-numpy
+network
+matplotlib
+opencv-python
+pyzbar
