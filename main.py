@@ -9,7 +9,7 @@ def calcular_direcao(pos1, pos2):
     if abs(dx) > abs(dy):
         return "Direita" if dx > 0 else "Esquerda"
     else:
-        return "Frente" if dy > 0 else "Trás"
+        return "Frente" if dy > 0 else "Tras"
 
 # Função para ler e decodificar o QR Code usando OpenCV e Pyzbar
 def ler_qr_code(frame):
@@ -23,7 +23,7 @@ def ler_qr_code(frame):
 def calcular_direcoes(G, pos_usuario, destino):
     shortest_path = nx.shortest_path(G, source=pos_usuario, target=destino, weight='weight')
     if len(shortest_path) < 2:
-        return "Destino já alcançado ou caminho inválido"
+        return "Destino já alcançado ou caminho invalido"
     nodo_atual = shortest_path[0]
     nodo_proximo = shortest_path[1]
     direcao = calcular_direcao(nodos[nodo_atual], nodos[nodo_proximo])
@@ -60,7 +60,7 @@ for aresta in arestas:
 ultima_posicao = None
 
 # Captura de vídeo da câmera
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_V4L)
 
 while True:
     ret, frame = cap.read()
@@ -72,11 +72,11 @@ while True:
 
     if pos_usuario in G.nodes:
         if pos_usuario != ultima_posicao:
-            print(f"\nPosição atual do usuário: {pos_usuario}")
+            print(f"\nPosicao atual do usuario: {pos_usuario}")
             
             # Calculando a próxima direção a ser seguida
             proxima_direcao = calcular_direcoes(G, pos_usuario, "SalaB")
-            print("Próxima direção a seguir:")
+            #print("Próxima direção a seguir:")
             print(proxima_direcao)
 
             # Atualizando a última posição
