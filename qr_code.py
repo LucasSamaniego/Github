@@ -1,5 +1,7 @@
 from picamera2 import Picamera2
-import cv2
+from pyzbar.pyzbar import decode
+from PIL import Image
+import numpy as np
 
 # Inicializa a câmera
 picam2 = Picamera2()
@@ -8,23 +10,23 @@ picam2.configure(picam2.create_still_configuration())
 # Inicia a câmera
 picam2.start()
 
-# Captura uma imagem da câmera
-frame = picam2.capture_array()
+try:
+    # Captura uma imagem da câmera
+    frame = picam2.capture_array()
 
-# Converte a imagem para escala de cinza
-gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Converte a imagem para formato PIL
+    image = Image.fromarray(frame)
 
-# Inicializa o detector de QR code
-qrCodeDetector = cv2.QRCodeDetector()
+    # Decodifica QR codes
+    decoded_objects = decode(image)
 
-# Detecta e decodifica o QR code
-data, points, _ = qrCodeDetector.detectAndDecode(gray)
+    # Verifica se um QR code foi encontrado e imprime o resultado
+    if decoded_objects:
+        for obj in decoded_objects:
+            print(f"QR Code Data: {obj.data.decode('utf-8')}")
+    else:
+        print("Nenhum QR code encontrado.")
 
-# Verifica se um QR code foi encontrado e imprime o resultado
-if data:
-    print(f"QR Code Data: {data}")
-else:
-    print("Nenhum QR code encontrado.")
-
-# Libera os recursos da câmera
-picam2.stop()
+finally:
+    # Garante que os recursos da câmera sejam liberados
+    picam2.stop()
