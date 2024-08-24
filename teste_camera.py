@@ -12,6 +12,6 @@ while True:
     print("success in taking image? ", success)
     if success and not image.empty():
         image = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        // further code to be excecuted to process the image
+        #further code to be excecuted to process the image
     else:
         print("problem capturing image")
