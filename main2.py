@@ -67,6 +67,8 @@ config = picam2.create_preview_configuration()
 picam2.configure(config)
 picam2.start()
 
+print("Lendo QR Code...")
+
 while True:
     # Capturando o frame da câmera
     frame = picam2.capture_array()
