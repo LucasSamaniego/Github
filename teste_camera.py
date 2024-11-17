@@ -9,7 +9,7 @@ picam2.start()
 frame = picam2.capture_array()
 
 # Salvar a imagem capturada
-cv2.imwrite("foto.jpg", frame)
+cv2.imwrite("foto2.jpg", frame)
 
 # Liberar a câmera e fechar janelas
 picam2.close()
